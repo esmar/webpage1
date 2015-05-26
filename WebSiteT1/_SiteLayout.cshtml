@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8" />
+        <title>@Page.Title - Mi página web ASP.NET</title>
+        <link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="~/Content/bootstrap3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="~/Content/bootstrap3.3.4/css/bootstrap-theme.min.css">
+
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+        <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+        <script src="~/Scripts/modernizr-2.6.2.js"></script>
+        <meta name="viewport" content="width=device-width" />
+
+        <script>
+            $(function () {
+
+                /* SET PARAMETERS */
+                var change_img_time = 5000;
+                var transition_speed = 100;
+
+                var simple_slideshow = $("#exampleSlider"),
+                    listItems = simple_slideshow.children('li'),
+                    listLen = listItems.length,
+                    i = 0,
+
+                    changeList = function () {
+
+                        listItems.eq(i).fadeOut(transition_speed, function () {
+                            i += 1;
+                            if (i === listLen) {
+                                i = 0;
+                            }
+                            listItems.eq(i).fadeIn(transition_speed);
+                        });
+
+                    };
+
+                listItems.not(':first').hide();
+                setInterval(changeList, change_img_time);
+
+            });
+
+        </script>
+        <script>
+            (function ($) {
+
+                //cache nav
+                var nav = $("#topNav");
+
+                //add indicators and hovers to submenu parents
+                nav.find("li").each(function () {
+                    if ($(this).find("ul").length > 0) {
+
+                        $("<span>").text("^").appendTo($(this).children(":first"));
+
+                        //show subnav on hover
+                        $(this).mouseenter(function () {
+                            $(this).find("ul").stop(true, true).slideDown();
+                        });
+
+                        //hide submenus on exit
+                        $(this).mouseleave(function () {
+                            $(this).find("ul").stop(true, true).slideUp();
+                        });
+                    }
+                });
+            })(jQuery);
+</script>
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title"><a href="~/">Home</a></p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        @if (WebSecurity.IsAuthenticated) {
+                            <text>
+                                ¡Hola, <a class="email" href="~/Account/Manage" title="Manage">@WebSecurity.CurrentUserName</a>!
+                                <form id="logoutForm" action="~/Account/Logout" method="post">
+                                    @AntiForgery.GetHtml()
+                                    <a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a>
+                                </form>
+                            </text>
+                        } else {
+                            <ul>
+                                <li><a href="~/Account/Register">Registrar</a></li>
+                                <li><a href="~/Account/Login">Iniciar sesión</a></li>
+                            </ul>
+                        }
+                    </section>
+                    <nav id="topNav">
+                        <ul >
+                            <li><a href="~/">Home</a></li>
+                            <li>
+                    <a href="#" title="Nav Link 1">Nav Link 2</a>
+                    <ul>  
+                        <li><a href="#" title="Sub Nav Link 1">Sub Nav Link 1</a></li>
+                        <li><a href="#" title="Sub Nav Link 2">Sub Nav Link 2</a></li>
+                        <li><a href="#" title="Sub Nav Link 3">Sub Nav Link 3</a></li>
+                        <li><a href="#" title="Sub Nav Link 4">Sub Nav Link 4</a></li>
+                        <li class="last"><a href="#" title="Sub Nav Link 5">Sub Nav Link 5</a></li>
+                    </ul>                
+                </li>
+                           
+                         
+                            
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <script src="~/Scripts/jquery-1.8.2.js"></script>
+        <script src="~/Scripts/modernizr-2.6.2.js"></script>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Página de Prueba</p>
+                </div>
+            </div>
+        </footer>
+        @RenderSection("Scripts", required: false)
+    </body>
+</html>
