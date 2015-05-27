@@ -73,6 +73,25 @@
                 });
             })(jQuery);
 </script>
+ <script type="text/javascript">
+            function startTime() {
+                today = new Date();
+                h = today.getHours();
+                m = today.getMinutes();
+                s = today.getSeconds();
+             
+                txt = h >= 12 ? 'pm' : 'am';
+                h = h % 12;
+                h = h ? h : 12;
+                m = checkTime(m);
+                s = checkTime(s);
+                document.getElementById('reloj').innerHTML = h + ":" + m + ":" + s+ " "+ txt;
+                t = setTimeout('startTime()', 500);
+            }
+            function checkTime(i)
+            { if (i < 10) { i = "0" + i; } return i; }
+            window.onload = function () { startTime(); }
+</script>
     </head>
     <body>
         <header>
@@ -97,21 +116,12 @@
                             </ul>
                         }
                     </section>
-                    <nav id="topNav">
-                        <ul >
+                    <nav >
+                        <ul id="menu">
                             <li><a href="~/">Home</a></li>
-                            <li>
-                    <a href="#" title="Nav Link 1">Nav Link 2</a>
-                    <ul>  
-                        <li><a href="#" title="Sub Nav Link 1">Sub Nav Link 1</a></li>
-                        <li><a href="#" title="Sub Nav Link 2">Sub Nav Link 2</a></li>
-                        <li><a href="#" title="Sub Nav Link 3">Sub Nav Link 3</a></li>
-                        <li><a href="#" title="Sub Nav Link 4">Sub Nav Link 4</a></li>
-                        <li class="last"><a href="#" title="Sub Nav Link 5">Sub Nav Link 5</a></li>
-                    </ul>                
-                </li>
-                           
-                         
+                            <li><a href="~/Services">Services</a></li>
+                          
+            
                             
                         </ul>
                     </nav>
@@ -123,6 +133,9 @@
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
             </section>
+        
+            
+
         </div>
         <script src="~/Scripts/jquery-1.8.2.js"></script>
         <script src="~/Scripts/modernizr-2.6.2.js"></script>

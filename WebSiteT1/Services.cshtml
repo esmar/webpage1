@@ -1,9 +1,30 @@
 ﻿@{
     Layout = "~/_SiteLayout.cshtml";
-    Page.Title = "Escriba el título aquí";
+    Page.Title = "Services";
     //Layout = "Su página de diseño se incluye aquí";
 }
+
+
+
 <hgroup class="title">
     <h1>@Page.Title.</h1>
-    <h2>Your contact page.</h2>
+    
 </hgroup>
+   
+    <div class="content-wrapper">
+             <ul >
+                <li><a href="~/SoftwareDevelop">Software Development</a></li>
+                 <li><a href="~/Outsour">Outsourcing</a></li>
+                  <li><a href="~/QuaAssu">Quality Assurance</a></li>         
+            
+                            
+                 </ul>
+    </div>
+
+
+<aside>
+   
+    <p> Fecha : @DateTime.Today.ToShortDateString()</p>
+    <div id="reloj" style="font-size:20px;"></div>
+</aside>
+
